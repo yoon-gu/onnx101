@@ -18,9 +18,11 @@ from tensorflow.keras import layers, Input
 
 ########################################
 # Creates the model.
-shape = (12, 10, 3)
+shape = (1, 12, 10, 3)
 model = keras.Sequential()
 model.add(Input(shape))
+model.add(layers.Permute((2, 3, 4, 1)))
+model.add(layers.Reshape((shape[1], shape[2], shape[0]*shape[3])))
 model.add(layers.ZeroPadding2D())
 model.add(layers.Convolution2D(32, (3,3), activation='relu'))
 model.add(layers.Convolution2D(64, (3,3), activation='relu'))
